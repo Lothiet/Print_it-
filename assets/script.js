@@ -15,7 +15,10 @@ const slides = [
 		"image":"slide4.jpg",
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
-]
+];
+
+// Variable pour suivre l'index de la première image visible
+let currentIndex = 0;
 
 // Sélection des flèches gauche et droite
 const leftArrow = document.querySelector('.arrow_left');
@@ -32,7 +35,7 @@ rightArrow.addEventListener('click', function() {
 });
 
 // Sélectionnez tous les bullets
-const bullets = document.querySelectorAll('.dot');
+const bullets = document.querySelector('.dots'); 
 
 // Fonction pour mettre à jour les bullets en fonction de l'index de l'image actuelle
 function updateBullets() {
@@ -51,33 +54,34 @@ function updateTagLine() {
     tagLine.innerHTML = slides[currentIndex].tagLine;
 }
 
+//fonction pour l'image
+function updateImage(slides,currentIndex){
+    const image = document.querySelector('.carousel .banner-img');
+    const prefixeImage = "./assets/images/slideshow/";
+    image.src = prefixeImage + slides[currentIndex].image;
+    
+}
 // Fonction pour déplacer le carrousel vers la droite 
 // Sélection des images du carrousel
 const bannerImg= document.querySelectorAll('.banner-img');
 
-// Variable pour suivre l'index de la première image visible
-let currentIndex = 0;
-
 // Fonction pour déplacer le carrousel vers la droite
-function moveCarouselRight() {
-    // Masquer l'image actuelle en déplaçant son positionnement vers la gauche
-    bannerImg[currentIndex].style.transform = 'translateX(-100%)';
-    
+function moveCarouselRight(slides,currentIndex) {    
     // Incrémenter l'index de l'image actuelle
     currentIndex++;
 
     // Vérifier si nous avons atteint la dernière image
-    if (currentIndex === bannerImg.length) {
+    if (currentIndex >= slides.length) {
         // Si oui, revenir à la première image
         currentIndex = 0;
     }
 
-    // Afficher la nouvelle image en déplaçant son positionnement vers la gauche
-    bannerImg[currentIndex].style.transform = 'translateX(0)';
-      // Mettre à jour les phrases associées à l'image
-      updateTagLine();
+    // Mettre à jour les phrases associées à l'image
+    updateTagLine();
+    // Mettre à jour l'image
+    updateImage(slides,currentIndex);
 	 // Mettre à jour les bullets après le changement de diapositive
-	 updateBullets();
+	 // updateBullets(); 
 }
 
 // Ajout d'un écouteur d'événements sur la flèche droite
@@ -87,10 +91,8 @@ rightArrow.addEventListener('click', function() {
 });
 
 // Fonction pour déplacer le carrousel vers la gauche
-function moveCarouselLeft() {
-    // Masquer l'image actuelle en déplaçant son positionnement vers la droite
-    bannerImg[currentIndex].style.transform = 'translateX(100%)';
-    
+function moveCarouselLeft(slides,currentIndex) {
+
     // Décrémenter l'index de l'image actuelle
     currentIndex--;
 
@@ -100,12 +102,12 @@ function moveCarouselLeft() {
         currentIndex = bannerImg.length - 1;
     }
 
-    // Afficher la nouvelle image en déplaçant son positionnement vers la droite de 0 pixel
-    bannerImg[currentIndex].style.transform = 'translateX(0)';
-      // Mettre à jour les phrases associées à l'image
-      updateTagLine();
+    // Mettre à jour les phrases associées à l'image
+    updateTagLine();
+    // Mettre à jour l'image
+    updateImage(slides,currentIndex);
     // Mettre à jour les bullets après le changement de diapositive
-    updateBullets();
+    //updateBullets();
 }
 
 // Ajout d'un écouteur d'événements sur la flèche gauche
