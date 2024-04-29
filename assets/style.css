@@ -157,26 +157,28 @@ header {
 	background-color: #fff;
 }
 .dot:nth-child(1) {   
-background-color: red; /* Couleur pour le premier bullet */
-}
-
-.dot:nth-child(2) {
-background-color: blue; /* Couleur pour le deuxième bullet */
-}
-
-.dot:nth-child(3) {
-background-color: rgb(128, 51, 0); /* Couleur pour le troisième bullet */
-}
-
-.dot:nth-child(4) {
-background-color: rgb(0, 255, 55); /* Couleur pour le quatrième bullet */
-}
-
+	background-color: red; /* Couleur pour le premier bullet */
+	}
+	
+	.dot:nth-child(2) {
+	background-color: blue; /* Couleur pour le deuxième bullet */
+	}
+	
+	.dot:nth-child(3) {
+	background-color: rgb(128, 51, 0); /* Couleur pour le troisième bullet */
+	}
+	
+	.dot:nth-child(4) {
+	background-color: rgb(0, 255, 55); /* Couleur pour le quatrième bullet */
+	}
+	
 .dot.active {
     /* Styles pour la bullet active, par exemple : */
     border: 2px solid white;
 }
-
+.dot:hover {
+    background-color: yellow; /* Change la couleur de fond de la bullet au survol en jaune */
+}
 /* Fin du code CSS pour le carousel */
 #banner p {
 	font-family: 'Roboto Slab', sans-serif;

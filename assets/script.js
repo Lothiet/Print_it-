@@ -35,7 +35,7 @@ rightArrow.addEventListener('click', function() {
 });
 
 // Sélectionnez tous les bullets
-const bullets = document.querySelectorAll('.dots'); 
+const bullets = document.querySelectorAll('.dot.dots'); 
 
 // Fonction pour mettre à jour les bullets en fonction de l'index de l'image actuelle
 function updateBullets(bullets,currentIndex) {
@@ -45,8 +45,9 @@ function updateBullets(bullets,currentIndex) {
     bullets[currentIndex].classList.add('active');
 }
 
+
 // Fonction pour mettre à jour le contenu des phrases associées à l'image
-function updateTagLine(slides,currentIndex) {
+function updateTagLine(slides, currentIndex) {
     // Sélectionnez la phrase associée à l'image actuelle
     const tagLine = document.querySelector('.carousel p');
     // Mettez à jour le contenu de la phrase avec celui de l'image actuelle
@@ -56,16 +57,17 @@ function updateTagLine(slides,currentIndex) {
 //fonction pour l'image
 function updateImage(slides,currentIndex){
     const image = document.querySelector('.carousel .banner-img');
-    const prefixeImage = "./assets/images/slideshow/";
-    image.src = prefixeImage + slides[currentIndex].image;
-    
+    const prefixeImage = "./assets/images/slideshow/"; // variable prefixeImage = le chemin préfixe vers le dossier où se trouvent les images du carrousel. 
+    image.src = prefixeImage + slides[currentIndex].image; //chemin complet de l'image en concaténant le préfixe du chemin d'accès 
+    //avec le nom de fichier de l'image de la slide actuelle. 
 }
+
 // Fonction pour déplacer le carrousel vers la droite 
 // Sélection des images du carrousel
 const bannerImg= document.querySelectorAll('.banner-img');
 
 // Fonction pour déplacer le carrousel vers la droite
-function moveCarouselRight(slides,currentIndex) {    
+function moveCarouselRight() {    
     // Incrémenter l'index de l'image actuelle
     currentIndex++;
 
@@ -76,7 +78,7 @@ function moveCarouselRight(slides,currentIndex) {
     }
 
     // Mettre à jour les phrases associées à l'image
-    updateTagLine(slides,currentIndex);
+    updateTagLine(slides, currentIndex);
     // Mettre à jour l'image
     updateImage(slides,currentIndex);
 	 // Mettre à jour les bullets après le changement de diapositive
@@ -86,11 +88,11 @@ function moveCarouselRight(slides,currentIndex) {
 // Ajout d'un écouteur d'événements sur la flèche droite
 rightArrow.addEventListener('click', function() {
     console.log('Flèche droite cliquée');
-    moveCarouselRight(slides,currentIndex);
+    moveCarouselRight();
 });
 
 // Fonction pour déplacer le carrousel vers la gauche
-function moveCarouselLeft(slides,currentIndex) {
+function moveCarouselLeft() {
 
     // Décrémenter l'index de l'image actuelle
     currentIndex--;
@@ -102,15 +104,15 @@ function moveCarouselLeft(slides,currentIndex) {
     }
 
     // Mettre à jour les phrases associées à l'image
-    updateTagLine(slides,currentIndex);
+    updateTagLine();
     // Mettre à jour l'image
     updateImage(slides,currentIndex);
     // Mettre à jour les bullets après le changement de diapositive
-    updateBullets(bullets,currentIndex);
+    updateBullets(bullets, currentIndex);
 }
 
 // Ajout d'un écouteur d'événements sur la flèche gauche
 leftArrow.addEventListener('click', function() {
     console.log('Flèche gauche cliquée');
-    moveCarouselLeft(slides,currentIndex);
+    moveCarouselLeft();
 });
