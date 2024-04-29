@@ -35,19 +35,18 @@ rightArrow.addEventListener('click', function() {
 });
 
 // Sélectionnez tous les bullets
-const bullets = document.querySelector('.dots'); 
+const bullets = document.querySelectorAll('.dots'); 
 
 // Fonction pour mettre à jour les bullets en fonction de l'index de l'image actuelle
-function updateBullets() {
+function updateBullets(bullets,currentIndex) {
     // Réinitialisez tous les bullets pour les désactiver
     bullets.forEach(bullet => bullet.classList.remove('active'));
     // Activez le bullet correspondant à l'image actuelle
     bullets[currentIndex].classList.add('active');
 }
 
-
 // Fonction pour mettre à jour le contenu des phrases associées à l'image
-function updateTagLine() {
+function updateTagLine(slides,currentIndex) {
     // Sélectionnez la phrase associée à l'image actuelle
     const tagLine = document.querySelector('.carousel p');
     // Mettez à jour le contenu de la phrase avec celui de l'image actuelle
@@ -77,17 +76,17 @@ function moveCarouselRight(slides,currentIndex) {
     }
 
     // Mettre à jour les phrases associées à l'image
-    updateTagLine();
+    updateTagLine(slides,currentIndex);
     // Mettre à jour l'image
     updateImage(slides,currentIndex);
 	 // Mettre à jour les bullets après le changement de diapositive
-	 // updateBullets(); 
+	 updateBullets(bullets,currentIndex); 
 }
 
 // Ajout d'un écouteur d'événements sur la flèche droite
 rightArrow.addEventListener('click', function() {
     console.log('Flèche droite cliquée');
-    moveCarouselRight();
+    moveCarouselRight(slides,currentIndex);
 });
 
 // Fonction pour déplacer le carrousel vers la gauche
@@ -103,15 +102,15 @@ function moveCarouselLeft(slides,currentIndex) {
     }
 
     // Mettre à jour les phrases associées à l'image
-    updateTagLine();
+    updateTagLine(slides,currentIndex);
     // Mettre à jour l'image
     updateImage(slides,currentIndex);
     // Mettre à jour les bullets après le changement de diapositive
-    //updateBullets();
+    updateBullets(bullets,currentIndex);
 }
 
 // Ajout d'un écouteur d'événements sur la flèche gauche
 leftArrow.addEventListener('click', function() {
     console.log('Flèche gauche cliquée');
-    moveCarouselLeft();
+    moveCarouselLeft(slides,currentIndex);
 });
