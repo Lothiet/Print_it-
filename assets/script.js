@@ -122,7 +122,7 @@ document.addEventListener ("DOMContentLoaded", function(){ //attend le chargemen
     let dots= document.querySelector(".dots");
     slides.forEach(function(slide,index){
         let div= document.createElement("div");  //créer une div//
-        div.classList.add("dot"); //class dot ajouter à la dive
+        div.classList.add("dot"); //class dot ajouter à la div
         if(index==0){ //1ere slide//
             div.classList.add("dot_selected");
         }
