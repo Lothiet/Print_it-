@@ -35,16 +35,16 @@ rightArrow.addEventListener('click', function() {
 });
 
 // Sélectionnez tous les bullets
-const bullets = document.querySelectorAll('.dot.dots'); 
+let bullets = document.querySelectorAll('.dot'); 
 
 // Fonction pour mettre à jour les bullets en fonction de l'index de l'image actuelle
-function updateBullets(bullets,currentIndex) {
+function updateBullets(currentIndex){
+    let bullets = document.querySelectorAll('.dot'); 
     // Réinitialisez tous les bullets pour les désactiver
-    bullets.forEach(bullet => bullet.classList.remove('active'));
+    bullets.forEach(bullet => bullet.classList.remove('dot_selected'));
     // Activez le bullet correspondant à l'image actuelle
-    bullets[currentIndex].classList.add('active');
+    bullets[currentIndex].classList.add('dot_selected');
 }
-
 
 // Fonction pour mettre à jour le contenu des phrases associées à l'image
 function updateTagLine(slides, currentIndex) {
@@ -58,8 +58,9 @@ function updateTagLine(slides, currentIndex) {
 function updateImage(slides,currentIndex){
     const image = document.querySelector('.carousel .banner-img');
     const prefixeImage = "./assets/images/slideshow/"; // variable prefixeImage = le chemin préfixe vers le dossier où se trouvent les images du carrousel. 
-    image.src = prefixeImage + slides[currentIndex].image; //chemin complet de l'image en concaténant le préfixe du chemin d'accès 
-    //avec le nom de fichier de l'image de la slide actuelle. 
+    //Concatène le chemin de base prefixeImage avec le nom de fichier de l'image actuelle (slides[currentIndex].image) 
+    //pour obtenir le chemin complet de l'image.//
+    image.src = prefixeImage + slides[currentIndex].image;
 }
 
 // Fonction pour déplacer le carrousel vers la droite 
@@ -72,7 +73,7 @@ function moveCarouselRight() {
     currentIndex++;
 
     // Vérifier si nous avons atteint la dernière image
-    if (currentIndex >= slides.length) {
+    if (currentIndex >= slides.length) { //slides.length nombre total d'images
         // Si oui, revenir à la première image
         currentIndex = 0;
     }
@@ -82,7 +83,7 @@ function moveCarouselRight() {
     // Mettre à jour l'image
     updateImage(slides,currentIndex);
 	 // Mettre à jour les bullets après le changement de diapositive
-	 updateBullets(bullets,currentIndex); 
+	 updateBullets(currentIndex); 
 }
 
 // Ajout d'un écouteur d'événements sur la flèche droite
@@ -100,19 +101,31 @@ function moveCarouselLeft() {
     // Vérifier si nous avons atteint la première image
     if (currentIndex < 0) {
         // Si oui, passer à la dernière image
-        currentIndex = bannerImg.length - 1;
+        currentIndex = slides.length - 1;
     }
 
     // Mettre à jour les phrases associées à l'image
-    updateTagLine();
+    updateTagLine(slides, currentIndex);
     // Mettre à jour l'image
     updateImage(slides,currentIndex);
     // Mettre à jour les bullets après le changement de diapositive
-    updateBullets(bullets, currentIndex);
+    updateBullets(currentIndex);
 }
 
 // Ajout d'un écouteur d'événements sur la flèche gauche
 leftArrow.addEventListener('click', function() {
     console.log('Flèche gauche cliquée');
     moveCarouselLeft();
+});
+
+document.addEventListener ("DOMContentLoaded", function(){ //attend le chargement et l'analyse complet de la page avant exécution du code
+    let dots= document.querySelector(".dots");
+    slides.forEach(function(slide,index){
+        let div= document.createElement("div");  //créer une div//
+        div.classList.add("dot"); //class dot ajouter à la dive
+        if(index==0){ //1ere slide//
+            div.classList.add("dot_selected");
+        }
+        dots.appendChild(div); //rattache div comme enfant de l'élément dots//
+    });
 });
